@@ -1,0 +1,61 @@
+Explicatie Implementare
+-------------------------------------------------------------------------
+
+    In rezolvarea temei mele , a fost nevoie de 3 clase , una
+principala , una in care procesez task-urile pentru orders si 
+ultima pentru produsele caracteristice comenzilor din orders. In 
+continuare , voi dezvolta pe fiecare in parte .
+    In Tema2 , preiau argumentele din linia de comanda si initializez
+variabilele folosite cu valorile obtinute . In functia main initializez
+un obiect de tip ForkJoinPool pe care il voi folosi in rezolvarea de 
+task-uri. Invoc acest element de sincronizare cu un obiect de tip 
+OrderProcess si aici incepe rezolvarea task-urilor .
+    In OrderProcess citesc din fisierul orders.txt , linie cu linie , 
+pana cand ajung la o linie goala. In functia compute , fac procesarea 
+liniei , in sensul ca o "sparg" , delimitand comanda de numarul de 
+produse total din fiecare comanda si apoi pentru fiecare pereche de 
+tipul "id_comanda->numar_produse_din_comanda" deschid atatea task-uri
+cate produse sunt din fiecare fel si astfel ma asigur ca se va face 
+trecerea la o alta comanda atunci cand se termina de analizat toate 
+produsele vor fi analizate . Dupa acesti pasi se considera ca aceasta 
+comanda este finalizata si se trece ca shipped in fisierul de out . Se 
+revine in metoda compute si deschid un nou task pentru o noua comanda , 
+urmandu-se acesti pasi pana cand se vor epuiza comenzile.
+    In ProductsProcess , analog , am metoda de citire , in care preiau 
+doar linia corespunzatoare unui anumit produs. In metoda compute 
+verific daca linia este null , daca nu prelucrez produsul si il trec
+in fisierul caracteristic de output , dupa care incrementez o variabila 
+de tip AtomicInteger pe care o folosesc sa stiu cand am terminat de procesat
+toate produsele pentru un anumit tip de comanda.
+
+    Ca elemente de sincronizare am folosit synchronized si obiecte de tip
+ForkJoinPool . Ca erori pot spune ca au fost in principiut legate de modul
+de citire , initial citind cu Scanner , apoi schimband cu BufferedReader 
+datorita modului mai rapid de "procesare"/citire . Alte probleme minore
+au fost cauzate si de modul de intelegere al enuntului , dar rezolvate intre
+timp .
+
+    Linkuri si resurse utile in rezolvarea temei:
+-> laboratoarele 4-7 APD
+-> https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html
+-> https://docs.oracle.com/javase/tutorial/essential/concurrency/syncmeth.html
+
+    Vacanta frumoasa si Sarbatori fericite !
+         v
+        >X<
+         A
+        d$b
+      .d\$$b.
+    .d$i$$\$$b.
+       d$$@b
+      d\$$$ib
+    .d$$$\$$$b
+  .d$$@$$$$\$$ib.
+      d$$i$$b
+     d\$$$$@$b
+  .d$@$$\$$$$$@b.
+.d$$$$i$$$\$$$$$$b.
+        ###
+        ###
+        ###
+-------------------------------------------------------------------------
